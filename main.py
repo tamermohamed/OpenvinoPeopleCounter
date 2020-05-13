@@ -222,10 +222,7 @@ def infer_on_stream(args, client):
                 
             else:
                   person_avg_duration = 0  
-            
-            cv2.putText(frame, f"Current cnt: {current_count}",(50, 50),cv2.FONT_HERSHEY_SIMPLEX,1,(255, 0, 0) ,2)
-            cv2.putText(frame, f"Total cnt: {total_count}",(50, 100),cv2.FONT_HERSHEY_SIMPLEX,1,(255, 0, 0) ,2)
-            cv2.putText(frame, f"Avg Time: {person_avg_duration}",(50, 150),cv2.FONT_HERSHEY_SIMPLEX,1,(255, 0, 0) ,2)
+          
 
             if image_flag:
                 cv2.imwrite(f"{out_path}/{os.path.basename(args.input)}", frame)
@@ -236,20 +233,20 @@ def infer_on_stream(args, client):
             ### TODO: Calculate and send relevant information on ###
             ### current_count, total_count and duration to the MQTT server ###
             ### Topic "person": keys of "count" and "total" ###
-            #client.publish("person", json.dumps({"count": current_count, "total":total_count}))
+            client.publish("person", json.dumps({"count": current_count, "total":total_count}))
             ### Topic "person/duration": key of "duration" ###
-            #client.publish("person/duration", json.dumps({"duration": person_avg_duration}))
+            client.publish("person/duration", json.dumps({"duration": person_avg_duration}))
             
         
         ### TODO: Send the frame to the FFMPEG server ###    
-        # sys.stdout.buffer.write(frame)  
-        # sys.stdout.flush()
+        sys.stdout.buffer.write(frame)  
+        sys.stdout.flush()
 
         ### TODO: Write an output image if `single_image_mode` ###
     
     vedio_witer.release()
     vedio_catpure.release()  
-    #client.disconnect() 
+    client.disconnect() 
     cv2.destroyAllWindows()
 
 def main():
@@ -261,7 +258,7 @@ def main():
     # Grab command line args
     args = build_argparser().parse_args()
     # Connect to the MQTT server
-    client = None# connect_mqtt()
+    client = connect_mqtt()
     # Perform inference on the input stream
     infer_on_stream(args, client)
 
