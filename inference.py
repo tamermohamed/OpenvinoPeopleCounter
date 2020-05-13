@@ -42,6 +42,7 @@ class Network:
         self.input_blob = None
         self.output_blop = None
         self.infer_request_handle = None
+        
 
     def load_model(self,path_to_xml_file,device = "CPU"):
        
@@ -50,7 +51,14 @@ class Network:
         self.net_plugin = self.plugin.read_network(model=path_to_xml_file, weights=path_to_bin_file)
        
         self.exec_network = self.plugin.load_network(self.net_plugin, device)
+
+        network_query = self.plugin.query_network(network = self.net_plugin, device_name="CPU")
+
+        unsupported_layers = [l for l in self.net_plugin.layers.keys() if l not in network_query]
         
+        if len(unsupported_layers) != 0:
+            print("Unsupported layers found: {}".format(unsupported_layers))
+
         self.input_blob = next(iter(self.net_plugin.inputs))
         self.output_blop = next(iter(self.net_plugin.outputs))
        
