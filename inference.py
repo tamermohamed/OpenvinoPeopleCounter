@@ -47,14 +47,9 @@ class Network:
        
         path_to_bin_file = os.path.splitext(path_to_xml_file)[0]+'.bin'
 
-       
-
         self.net_plugin = self.plugin.read_network(model=path_to_xml_file, weights=path_to_bin_file)
        
         self.exec_network = self.plugin.load_network(self.net_plugin, device)
-        
-        
-        #self.plugin.query_network(network = self.net_plugin, device_name= "CPU")
         
         self.input_blob = next(iter(self.net_plugin.inputs))
         self.output_blop = next(iter(self.net_plugin.outputs))
