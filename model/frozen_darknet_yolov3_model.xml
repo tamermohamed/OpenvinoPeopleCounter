@@ -1,0 +1,2594 @@
+<?xml version="1.0" ?>
+<net name="frozen_darknet_yolov3_model" version="10">
+	<layers>
+		<layer id="0" name="inputs" type="Parameter" version="opset1">
+			<data element_type="f32" shape="1,3,416,416"/>
+			<output>
+				<port id="0" precision="FP32">
+					<dim>1</dim>
+					<dim>3</dim>
+					<dim>416</dim>
+					<dim>416</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="1" name="detector/truediv3383_const" type="Const" version="opset1">
+			<data element_type="f32" offset="0" shape="16,3,3,3" size="1728"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>16</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="2" name="detector/yolo-v3-tiny/Conv/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="1,1" pads_end="1,1" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>3</dim>
+					<dim>416</dim>
+					<dim>416</dim>
+				</port>
+				<port id="1">
+					<dim>16</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>16</dim>
+					<dim>416</dim>
+					<dim>416</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="3" name="data_add_3101/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1728" shape="1,16,1,1" size="64"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>16</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="4" name="detector/yolo-v3-tiny/Conv/BatchNorm/FusedBatchNormV3/variance/Fused_Add_" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>16</dim>
+					<dim>416</dim>
+					<dim>416</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>16</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>16</dim>
+					<dim>416</dim>
+					<dim>416</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="5" name="detector/yolo-v3-tiny/Conv/LeakyRelu4423/Cast_15430_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1792" shape="1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="6" name="detector/yolo-v3-tiny/Conv/LeakyRelu4423" type="PReLU" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>16</dim>
+					<dim>416</dim>
+					<dim>416</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>16</dim>
+					<dim>416</dim>
+					<dim>416</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="7" name="detector/yolo-v3-tiny/pool2/MaxPool" type="MaxPool" version="opset1">
+			<data auto_pad="valid" kernel="2,2" pads_begin="0,0" pads_end="0,0" strides="2,2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>16</dim>
+					<dim>416</dim>
+					<dim>416</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>16</dim>
+					<dim>208</dim>
+					<dim>208</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="8" name="detector/yolo-v3-tiny/Conv_1/BatchNorm/FusedBatchNormV3/mean/Fused_Mul_33413343_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1796" shape="32,16,3,3" size="18432"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>32</dim>
+					<dim>16</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="9" name="detector/yolo-v3-tiny/Conv_1/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="1,1" pads_end="1,1" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>16</dim>
+					<dim>208</dim>
+					<dim>208</dim>
+				</port>
+				<port id="1">
+					<dim>32</dim>
+					<dim>16</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>208</dim>
+					<dim>208</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="10" name="data_add_31043109/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="20228" shape="1,32,1,1" size="128"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="11" name="detector/yolo-v3-tiny/Conv_1/BatchNorm/FusedBatchNormV3/variance/Fused_Add_" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>208</dim>
+					<dim>208</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>208</dim>
+					<dim>208</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="12" name="detector/yolo-v3-tiny/Conv_1/LeakyRelu4419/Cast_15456_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1792" shape="1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="13" name="detector/yolo-v3-tiny/Conv_1/LeakyRelu4419" type="PReLU" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>208</dim>
+					<dim>208</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>208</dim>
+					<dim>208</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="14" name="detector/yolo-v3-tiny/pool2_1/MaxPool" type="MaxPool" version="opset1">
+			<data auto_pad="valid" kernel="2,2" pads_begin="0,0" pads_end="0,0" strides="2,2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>208</dim>
+					<dim>208</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>104</dim>
+					<dim>104</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="15" name="detector/yolo-v3-tiny/Conv_2/BatchNorm/FusedBatchNormV3/mean/Fused_Mul_33453347_const" type="Const" version="opset1">
+			<data element_type="f32" offset="20356" shape="64,32,3,3" size="73728"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="16" name="detector/yolo-v3-tiny/Conv_2/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="1,1" pads_end="1,1" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>32</dim>
+					<dim>104</dim>
+					<dim>104</dim>
+				</port>
+				<port id="1">
+					<dim>64</dim>
+					<dim>32</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>104</dim>
+					<dim>104</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="17" name="data_add_31123117/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="94084" shape="1,64,1,1" size="256"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="18" name="detector/yolo-v3-tiny/Conv_2/BatchNorm/FusedBatchNormV3/variance/Fused_Add_" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>104</dim>
+					<dim>104</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>104</dim>
+					<dim>104</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="19" name="detector/yolo-v3-tiny/Conv_2/LeakyRelu4403/Cast_15436_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1792" shape="1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="20" name="detector/yolo-v3-tiny/Conv_2/LeakyRelu4403" type="PReLU" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>104</dim>
+					<dim>104</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>104</dim>
+					<dim>104</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="21" name="detector/yolo-v3-tiny/pool2_2/MaxPool" type="MaxPool" version="opset1">
+			<data auto_pad="valid" kernel="2,2" pads_begin="0,0" pads_end="0,0" strides="2,2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>104</dim>
+					<dim>104</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>52</dim>
+					<dim>52</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="22" name="detector/yolo-v3-tiny/Conv_3/BatchNorm/FusedBatchNormV3/mean/Fused_Mul_33493351_const" type="Const" version="opset1">
+			<data element_type="f32" offset="94340" shape="128,64,3,3" size="294912"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>128</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="23" name="detector/yolo-v3-tiny/Conv_3/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="1,1" pads_end="1,1" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>64</dim>
+					<dim>52</dim>
+					<dim>52</dim>
+				</port>
+				<port id="1">
+					<dim>128</dim>
+					<dim>64</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>52</dim>
+					<dim>52</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="24" name="data_add_31203125/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="389252" shape="1,128,1,1" size="512"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="25" name="detector/yolo-v3-tiny/Conv_3/BatchNorm/FusedBatchNormV3/variance/Fused_Add_" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>52</dim>
+					<dim>52</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>52</dim>
+					<dim>52</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="26" name="detector/yolo-v3-tiny/Conv_3/LeakyRelu4407/Cast_15450_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1792" shape="1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="27" name="detector/yolo-v3-tiny/Conv_3/LeakyRelu4407" type="PReLU" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>52</dim>
+					<dim>52</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>52</dim>
+					<dim>52</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="28" name="detector/yolo-v3-tiny/pool2_3/MaxPool" type="MaxPool" version="opset1">
+			<data auto_pad="valid" kernel="2,2" pads_begin="0,0" pads_end="0,0" strides="2,2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>52</dim>
+					<dim>52</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="29" name="detector/yolo-v3-tiny/Conv_4/BatchNorm/FusedBatchNormV3/mean/Fused_Mul_33533355_const" type="Const" version="opset1">
+			<data element_type="f32" offset="389764" shape="256,128,3,3" size="1179648"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>256</dim>
+					<dim>128</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="30" name="detector/yolo-v3-tiny/Conv_4/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="1,1" pads_end="1,1" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+				<port id="1">
+					<dim>256</dim>
+					<dim>128</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="31" name="data_add_31283133/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1569412" shape="1,256,1,1" size="1024"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="32" name="detector/yolo-v3-tiny/Conv_4/BatchNorm/FusedBatchNormV3/variance/Fused_Add_" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="33" name="detector/yolo-v3-tiny/Conv_4/LeakyRelu4411/Cast_15432_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1792" shape="1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="34" name="detector/yolo-v3-tiny/Conv_4/LeakyRelu4411" type="PReLU" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="35" name="detector/yolo-v3-tiny/pool2_4/MaxPool" type="MaxPool" version="opset1">
+			<data auto_pad="valid" kernel="2,2" pads_begin="0,0" pads_end="0,0" strides="2,2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="36" name="detector/yolo-v3-tiny/Conv_5/BatchNorm/FusedBatchNormV3/mean/Fused_Mul_33573359_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1570436" shape="512,256,3,3" size="4718592"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>512</dim>
+					<dim>256</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="37" name="detector/yolo-v3-tiny/Conv_5/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="1,1" pads_end="1,1" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>512</dim>
+					<dim>256</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="38" name="data_add_31363141/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="6289028" shape="1,512,1,1" size="2048"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="39" name="detector/yolo-v3-tiny/Conv_5/BatchNorm/FusedBatchNormV3/variance/Fused_Add_" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="40" name="detector/yolo-v3-tiny/Conv_5/LeakyRelu4435/Cast_15448_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1792" shape="1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="41" name="detector/yolo-v3-tiny/Conv_5/LeakyRelu4435" type="PReLU" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="42" name="detector/yolo-v3-tiny/pool2_5/MaxPool" type="MaxPool" version="opset1">
+			<data auto_pad="same_upper" kernel="2,2" pads_begin="0,0" pads_end="1,1" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="43" name="detector/yolo-v3-tiny/Conv_6/BatchNorm/FusedBatchNormV3/mean/Fused_Mul_33613363_const" type="Const" version="opset1">
+			<data element_type="f32" offset="6291076" shape="1024,512,3,3" size="18874368"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1024</dim>
+					<dim>512</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="44" name="detector/yolo-v3-tiny/Conv_6/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="1,1" pads_end="1,1" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1024</dim>
+					<dim>512</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>1024</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="45" name="data_add_31443149/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="25165444" shape="1,1024,1,1" size="4096"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>1024</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="46" name="detector/yolo-v3-tiny/Conv_6/BatchNorm/FusedBatchNormV3/variance/Fused_Add_" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>1024</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>1024</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>1024</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="47" name="detector/yolo-v3-tiny/Conv_6/LeakyRelu4415/Cast_15454_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1792" shape="1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="48" name="detector/yolo-v3-tiny/Conv_6/LeakyRelu4415" type="PReLU" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>1024</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>1024</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="49" name="detector/yolo-v3-tiny/Conv_7/BatchNorm/FusedBatchNormV3/mean/Fused_Mul_33653367_const" type="Const" version="opset1">
+			<data element_type="f32" offset="25169540" shape="256,1024,1,1" size="1048576"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>256</dim>
+					<dim>1024</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="50" name="detector/yolo-v3-tiny/Conv_7/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="0,0" pads_end="0,0" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>1024</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>256</dim>
+					<dim>1024</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="51" name="data_add_31523157/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="26218116" shape="1,256,1,1" size="1024"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="52" name="detector/yolo-v3-tiny/Conv_7/BatchNorm/FusedBatchNormV3/variance/Fused_Add_" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="53" name="detector/yolo-v3-tiny/Conv_7/LeakyRelu4431/Cast_15444_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1792" shape="1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="54" name="detector/yolo-v3-tiny/Conv_7/LeakyRelu4431" type="PReLU" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="55" name="detector/yolo-v3-tiny/Conv_8/BatchNorm/FusedBatchNormV3/mean/Fused_Mul_33773379_const" type="Const" version="opset1">
+			<data element_type="f32" offset="26219140" shape="512,256,3,3" size="4718592"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>512</dim>
+					<dim>256</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="56" name="detector/yolo-v3-tiny/Conv_8/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="1,1" pads_end="1,1" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>512</dim>
+					<dim>256</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="57" name="data_add_31763181/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="30937732" shape="1,512,1,1" size="2048"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="58" name="detector/yolo-v3-tiny/Conv_8/BatchNorm/FusedBatchNormV3/variance/Fused_Add_" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="59" name="detector/yolo-v3-tiny/Conv_8/LeakyRelu4395/Cast_15446_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1792" shape="1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="60" name="detector/yolo-v3-tiny/Conv_8/LeakyRelu4395" type="PReLU" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="61" name="detector/yolo-v3-tiny/Conv_9/weights/read/Output_0/Data__const" type="Const" version="opset1">
+			<data element_type="f32" offset="30939780" shape="255,512,1,1" size="522240"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>255</dim>
+					<dim>512</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="62" name="detector/yolo-v3-tiny/Conv_9/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="0,0" pads_end="0,0" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>512</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>255</dim>
+					<dim>512</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="63" name="detector/yolo-v3-tiny/Conv_9/biases/read/Output_0/Data_/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="31462020" shape="1,255,1,1" size="1020"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="64" name="detector/yolo-v3-tiny/Conv_9/BiasAdd/Add" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="65" name="detector/yolo-v3-tiny/Conv_9/BiasAdd/Add/Transpose/Cast_15428_const" type="Const" version="opset1">
+			<data element_type="i64" offset="31463040" shape="4" size="32"/>
+			<output>
+				<port id="1" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="66" name="detector/yolo-v3-tiny/Conv_9/BiasAdd/Add/Transpose" type="Transpose" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+					<dim>255</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="67" name="detector/yolo-v3-tiny/Reshape/Cast_15426_const" type="Const" version="opset1">
+			<data element_type="i64" offset="31463072" shape="3" size="24"/>
+			<output>
+				<port id="1" precision="I64">
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="68" name="detector/yolo-v3-tiny/Reshape" type="Reshape" version="opset1">
+			<data special_zero="False"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+					<dim>255</dim>
+				</port>
+				<port id="1">
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>85</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="69" name="detector/yolo-v3-tiny/split/split_dim/Output_0/Data__const" type="Const" version="opset1">
+			<data element_type="i64" offset="31463096" shape="" size="8"/>
+			<output>
+				<port id="1" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="70" name="detector/yolo-v3-tiny/Const/Output_0/Data__const" type="Const" version="opset1">
+			<data element_type="i64" offset="31463104" shape="4" size="32"/>
+			<output>
+				<port id="1" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="71" name="detector/yolo-v3-tiny/split" type="VariadicSplit" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>85</dim>
+				</port>
+				<port id="1"/>
+				<port id="2">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+				<port id="4" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+				<port id="5" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>1</dim>
+				</port>
+				<port id="6" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>80</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="72" name="detector/yolo-v3-tiny/Sigmoid" type="Sigmoid" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="73" name="detector/yolo-v3-tiny/Reshape_3/Output_0/Data__const" type="Const" version="opset1">
+			<data element_type="f32" offset="31463136" shape="1,507,2" size="4056"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="74" name="detector/yolo-v3-tiny/add" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="75" name="detector/yolo-v3-tiny/mul/y/Output_0/Data_/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="31467192" shape="1,1,2" size="8"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="76" name="detector/yolo-v3-tiny/mul" type="Multiply" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="77" name="detector/yolo-v3-tiny/Exp" type="Exp" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="78" name="detector/yolo-v3-tiny/Tile_1/Output_0/Data_/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="31467200" shape="1,507,2" size="4056"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="79" name="detector/yolo-v3-tiny/mul_1" type="Multiply" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="80" name="detector/yolo-v3-tiny/mul_2/y/Output_0/Data_/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="31467192" shape="1,1,2" size="8"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="81" name="detector/yolo-v3-tiny/mul_2" type="Multiply" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="82" name="detector/yolo-v3-tiny/Sigmoid_1" type="Sigmoid" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="83" name="detector/yolo-v3-tiny/concat_1" type="Concat" version="opset1">
+			<data axis="2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>2</dim>
+				</port>
+				<port id="2">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>5</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="84" name="detector/yolo-v3-tiny/Sigmoid_2" type="Sigmoid" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>80</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>80</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="85" name="detector/yolo-v3-tiny/concat_2" type="Concat" version="opset1">
+			<data axis="2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>5</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>80</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>85</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="86" name="detector/yolo-v3-tiny/Conv_10/BatchNorm/FusedBatchNormV3/mean/Fused_Mul_33693371_const" type="Const" version="opset1">
+			<data element_type="f32" offset="31471256" shape="128,256,1,1" size="131072"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>128</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="87" name="detector/yolo-v3-tiny/Conv_10/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="0,0" pads_end="0,0" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>128</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="88" name="data_add_31603165/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="31602328" shape="1,128,1,1" size="512"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="89" name="detector/yolo-v3-tiny/Conv_10/BatchNorm/FusedBatchNormV3/variance/Fused_Add_" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="90" name="detector/yolo-v3-tiny/Conv_10/LeakyRelu4399/Cast_15440_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1792" shape="1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="91" name="detector/yolo-v3-tiny/Conv_10/LeakyRelu4399" type="PReLU" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="92" name="detector/yolo-v3-tiny/ResizeNearestNeighbor/Cast_15442_const" type="Const" version="opset1">
+			<data element_type="i64" offset="31602840" shape="2" size="16"/>
+			<output>
+				<port id="1" precision="I64">
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="93" name="detector/yolo-v3-tiny/ResizeNearestNeighbor" type="Interpolate" version="opset1">
+			<data align_corners="0" antialias="0" axes="2,3" mode="nearest" pads_begin="0" pads_end="0"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>13</dim>
+					<dim>13</dim>
+				</port>
+				<port id="1">
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="94" name="detector/yolo-v3-tiny/concat_3" type="Concat" version="opset1">
+			<data axis="1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>128</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>384</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="95" name="detector/yolo-v3-tiny/Conv_11/BatchNorm/FusedBatchNormV3/mean/Fused_Mul_33733375_const" type="Const" version="opset1">
+			<data element_type="f32" offset="31602856" shape="256,384,3,3" size="3538944"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>256</dim>
+					<dim>384</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="96" name="detector/yolo-v3-tiny/Conv_11/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="1,1" pads_end="1,1" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>384</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+				<port id="1">
+					<dim>256</dim>
+					<dim>384</dim>
+					<dim>3</dim>
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="97" name="data_add_31683173/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="35141800" shape="1,256,1,1" size="1024"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="98" name="detector/yolo-v3-tiny/Conv_11/BatchNorm/FusedBatchNormV3/variance/Fused_Add_" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="99" name="detector/yolo-v3-tiny/Conv_11/LeakyRelu4427/Cast_15438_const" type="Const" version="opset1">
+			<data element_type="f32" offset="1792" shape="1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="100" name="detector/yolo-v3-tiny/Conv_11/LeakyRelu4427" type="PReLU" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="101" name="detector/yolo-v3-tiny/Conv_12/weights/read/Output_0/Data__const" type="Const" version="opset1">
+			<data element_type="f32" offset="35142824" shape="255,256,1,1" size="261120"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>255</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="102" name="detector/yolo-v3-tiny/Conv_12/Conv2D" type="Convolution" version="opset1">
+			<data auto_pad="same_upper" dilations="1,1" output_padding="0,0" pads_begin="0,0" pads_end="0,0" strides="1,1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>256</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+				<port id="1">
+					<dim>255</dim>
+					<dim>256</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="103" name="detector/yolo-v3-tiny/Conv_12/biases/read/Output_0/Data_/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="35403944" shape="1,255,1,1" size="1020"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="104" name="detector/yolo-v3-tiny/Conv_12/BiasAdd/Add" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="105" name="detector/yolo-v3-tiny/Conv_12/BiasAdd/Add/Transpose/Cast_15452_const" type="Const" version="opset1">
+			<data element_type="i64" offset="31463040" shape="4" size="32"/>
+			<output>
+				<port id="1" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="106" name="detector/yolo-v3-tiny/Conv_12/BiasAdd/Add/Transpose" type="Transpose" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>255</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+				</port>
+				<port id="1">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+					<dim>255</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="107" name="detector/yolo-v3-tiny/Reshape_4/Cast_15434_const" type="Const" version="opset1">
+			<data element_type="i64" offset="35404964" shape="3" size="24"/>
+			<output>
+				<port id="1" precision="I64">
+					<dim>3</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="108" name="detector/yolo-v3-tiny/Reshape_4" type="Reshape" version="opset1">
+			<data special_zero="False"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>26</dim>
+					<dim>26</dim>
+					<dim>255</dim>
+				</port>
+				<port id="1">
+					<dim>3</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>85</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="109" name="detector/yolo-v3-tiny/split_1/split_dim/Output_0/Data__const" type="Const" version="opset1">
+			<data element_type="i64" offset="31463096" shape="" size="8"/>
+			<output>
+				<port id="1" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="110" name="detector/yolo-v3-tiny/Const_1/Output_0/Data__const" type="Const" version="opset1">
+			<data element_type="i64" offset="31463104" shape="4" size="32"/>
+			<output>
+				<port id="1" precision="I64">
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="111" name="detector/yolo-v3-tiny/split_1" type="VariadicSplit" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>85</dim>
+				</port>
+				<port id="1"/>
+				<port id="2">
+					<dim>4</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+				<port id="4" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+				<port id="5" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>1</dim>
+				</port>
+				<port id="6" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>80</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="112" name="detector/yolo-v3-tiny/Sigmoid_3" type="Sigmoid" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="113" name="detector/yolo-v3-tiny/Reshape_7/Output_0/Data__const" type="Const" version="opset1">
+			<data element_type="f32" offset="35404988" shape="1,2028,2" size="16224"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="114" name="detector/yolo-v3-tiny/add_1" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="115" name="detector/yolo-v3-tiny/mul_3/y/Output_0/Data_/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="35421212" shape="1,1,2" size="8"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="116" name="detector/yolo-v3-tiny/mul_3" type="Multiply" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="117" name="detector/yolo-v3-tiny/Exp_1" type="Exp" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="118" name="detector/yolo-v3-tiny/Tile_3/Output_0/Data_/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="35421220" shape="1,2028,2" size="16224"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="119" name="detector/yolo-v3-tiny/mul_4" type="Multiply" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="120" name="detector/yolo-v3-tiny/mul_5/y/Output_0/Data_/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="35421212" shape="1,1,2" size="8"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="121" name="detector/yolo-v3-tiny/mul_5" type="Multiply" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>2</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="122" name="detector/yolo-v3-tiny/Sigmoid_4" type="Sigmoid" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="123" name="detector/yolo-v3-tiny/concat_5" type="Concat" version="opset1">
+			<data axis="2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>2</dim>
+				</port>
+				<port id="2">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>5</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="124" name="detector/yolo-v3-tiny/Sigmoid_5" type="Sigmoid" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>80</dim>
+				</port>
+			</input>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>80</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="125" name="detector/yolo-v3-tiny/concat_6" type="Concat" version="opset1">
+			<data axis="2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>5</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>80</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>85</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="126" name="detector/yolo-v3-tiny/concat_7" type="Concat" version="opset1">
+			<data axis="1"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>507</dim>
+					<dim>85</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>2028</dim>
+					<dim>85</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>85</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="127" name="split/split_dim/Output_0/Data__const" type="Const" version="opset1">
+			<data element_type="i64" offset="31463096" shape="" size="8"/>
+			<output>
+				<port id="1" precision="I64"/>
+			</output>
+		</layer>
+		<layer id="128" name="Const/Output_0/Data__const" type="Const" version="opset1">
+			<data element_type="i64" offset="35437444" shape="5" size="40"/>
+			<output>
+				<port id="1" precision="I64">
+					<dim>5</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="129" name="split" type="VariadicSplit" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>85</dim>
+				</port>
+				<port id="1"/>
+				<port id="2">
+					<dim>5</dim>
+				</port>
+			</input>
+			<output>
+				<port id="3" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="4" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="5" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="6" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="7" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>81</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="130" name="truediv/reciprocal_2914/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="35437484" shape="1,1,1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="131" name="truediv" type="Multiply" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="132" name="sub/sub" type="Subtract" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="133" name="truediv_1/reciprocal_2920/copy_const" type="Const" version="opset1">
+			<data element_type="f32" offset="35437484" shape="1,1,1" size="4"/>
+			<output>
+				<port id="1" precision="FP32">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="134" name="truediv_1" type="Multiply" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>1</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="135" name="sub_1/sub" type="Subtract" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="136" name="add" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="137" name="add_1" type="Add" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="138" name="concat" type="Concat" version="opset1">
+			<data axis="2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="2">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+				<port id="3">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>1</dim>
+				</port>
+			</input>
+			<output>
+				<port id="4" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>4</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="139" name="output_boxes" type="Concat" version="opset1">
+			<data axis="2"/>
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>4</dim>
+				</port>
+				<port id="1">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>81</dim>
+				</port>
+			</input>
+			<output>
+				<port id="2" precision="FP32">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>85</dim>
+				</port>
+			</output>
+		</layer>
+		<layer id="140" name="output_boxes/sink_port_0" type="Result" version="opset1">
+			<input>
+				<port id="0">
+					<dim>1</dim>
+					<dim>2535</dim>
+					<dim>85</dim>
+				</port>
+			</input>
+		</layer>
+	</layers>
+	<edges>
+		<edge from-layer="0" from-port="0" to-layer="2" to-port="0"/>
+		<edge from-layer="1" from-port="1" to-layer="2" to-port="1"/>
+		<edge from-layer="2" from-port="2" to-layer="4" to-port="0"/>
+		<edge from-layer="3" from-port="1" to-layer="4" to-port="1"/>
+		<edge from-layer="4" from-port="2" to-layer="6" to-port="0"/>
+		<edge from-layer="5" from-port="1" to-layer="6" to-port="1"/>
+		<edge from-layer="6" from-port="2" to-layer="7" to-port="0"/>
+		<edge from-layer="7" from-port="1" to-layer="9" to-port="0"/>
+		<edge from-layer="8" from-port="1" to-layer="9" to-port="1"/>
+		<edge from-layer="9" from-port="2" to-layer="11" to-port="0"/>
+		<edge from-layer="10" from-port="1" to-layer="11" to-port="1"/>
+		<edge from-layer="11" from-port="2" to-layer="13" to-port="0"/>
+		<edge from-layer="12" from-port="1" to-layer="13" to-port="1"/>
+		<edge from-layer="13" from-port="2" to-layer="14" to-port="0"/>
+		<edge from-layer="14" from-port="1" to-layer="16" to-port="0"/>
+		<edge from-layer="15" from-port="1" to-layer="16" to-port="1"/>
+		<edge from-layer="16" from-port="2" to-layer="18" to-port="0"/>
+		<edge from-layer="17" from-port="1" to-layer="18" to-port="1"/>
+		<edge from-layer="18" from-port="2" to-layer="20" to-port="0"/>
+		<edge from-layer="19" from-port="1" to-layer="20" to-port="1"/>
+		<edge from-layer="20" from-port="2" to-layer="21" to-port="0"/>
+		<edge from-layer="21" from-port="1" to-layer="23" to-port="0"/>
+		<edge from-layer="22" from-port="1" to-layer="23" to-port="1"/>
+		<edge from-layer="23" from-port="2" to-layer="25" to-port="0"/>
+		<edge from-layer="24" from-port="1" to-layer="25" to-port="1"/>
+		<edge from-layer="25" from-port="2" to-layer="27" to-port="0"/>
+		<edge from-layer="26" from-port="1" to-layer="27" to-port="1"/>
+		<edge from-layer="27" from-port="2" to-layer="28" to-port="0"/>
+		<edge from-layer="28" from-port="1" to-layer="30" to-port="0"/>
+		<edge from-layer="29" from-port="1" to-layer="30" to-port="1"/>
+		<edge from-layer="30" from-port="2" to-layer="32" to-port="0"/>
+		<edge from-layer="31" from-port="1" to-layer="32" to-port="1"/>
+		<edge from-layer="32" from-port="2" to-layer="34" to-port="0"/>
+		<edge from-layer="33" from-port="1" to-layer="34" to-port="1"/>
+		<edge from-layer="34" from-port="2" to-layer="35" to-port="0"/>
+		<edge from-layer="35" from-port="1" to-layer="37" to-port="0"/>
+		<edge from-layer="36" from-port="1" to-layer="37" to-port="1"/>
+		<edge from-layer="37" from-port="2" to-layer="39" to-port="0"/>
+		<edge from-layer="38" from-port="1" to-layer="39" to-port="1"/>
+		<edge from-layer="39" from-port="2" to-layer="41" to-port="0"/>
+		<edge from-layer="40" from-port="1" to-layer="41" to-port="1"/>
+		<edge from-layer="41" from-port="2" to-layer="42" to-port="0"/>
+		<edge from-layer="42" from-port="1" to-layer="44" to-port="0"/>
+		<edge from-layer="43" from-port="1" to-layer="44" to-port="1"/>
+		<edge from-layer="44" from-port="2" to-layer="46" to-port="0"/>
+		<edge from-layer="45" from-port="1" to-layer="46" to-port="1"/>
+		<edge from-layer="46" from-port="2" to-layer="48" to-port="0"/>
+		<edge from-layer="47" from-port="1" to-layer="48" to-port="1"/>
+		<edge from-layer="48" from-port="2" to-layer="50" to-port="0"/>
+		<edge from-layer="49" from-port="1" to-layer="50" to-port="1"/>
+		<edge from-layer="50" from-port="2" to-layer="52" to-port="0"/>
+		<edge from-layer="51" from-port="1" to-layer="52" to-port="1"/>
+		<edge from-layer="52" from-port="2" to-layer="54" to-port="0"/>
+		<edge from-layer="53" from-port="1" to-layer="54" to-port="1"/>
+		<edge from-layer="54" from-port="2" to-layer="56" to-port="0"/>
+		<edge from-layer="55" from-port="1" to-layer="56" to-port="1"/>
+		<edge from-layer="56" from-port="2" to-layer="58" to-port="0"/>
+		<edge from-layer="57" from-port="1" to-layer="58" to-port="1"/>
+		<edge from-layer="58" from-port="2" to-layer="60" to-port="0"/>
+		<edge from-layer="59" from-port="1" to-layer="60" to-port="1"/>
+		<edge from-layer="60" from-port="2" to-layer="62" to-port="0"/>
+		<edge from-layer="61" from-port="1" to-layer="62" to-port="1"/>
+		<edge from-layer="62" from-port="2" to-layer="64" to-port="0"/>
+		<edge from-layer="63" from-port="1" to-layer="64" to-port="1"/>
+		<edge from-layer="64" from-port="2" to-layer="66" to-port="0"/>
+		<edge from-layer="65" from-port="1" to-layer="66" to-port="1"/>
+		<edge from-layer="66" from-port="2" to-layer="68" to-port="0"/>
+		<edge from-layer="67" from-port="1" to-layer="68" to-port="1"/>
+		<edge from-layer="68" from-port="2" to-layer="71" to-port="0"/>
+		<edge from-layer="69" from-port="1" to-layer="71" to-port="1"/>
+		<edge from-layer="70" from-port="1" to-layer="71" to-port="2"/>
+		<edge from-layer="71" from-port="3" to-layer="72" to-port="0"/>
+		<edge from-layer="72" from-port="1" to-layer="74" to-port="0"/>
+		<edge from-layer="73" from-port="1" to-layer="74" to-port="1"/>
+		<edge from-layer="74" from-port="2" to-layer="76" to-port="0"/>
+		<edge from-layer="75" from-port="1" to-layer="76" to-port="1"/>
+		<edge from-layer="71" from-port="4" to-layer="77" to-port="0"/>
+		<edge from-layer="77" from-port="1" to-layer="79" to-port="0"/>
+		<edge from-layer="78" from-port="1" to-layer="79" to-port="1"/>
+		<edge from-layer="79" from-port="2" to-layer="81" to-port="0"/>
+		<edge from-layer="80" from-port="1" to-layer="81" to-port="1"/>
+		<edge from-layer="71" from-port="5" to-layer="82" to-port="0"/>
+		<edge from-layer="76" from-port="2" to-layer="83" to-port="0"/>
+		<edge from-layer="81" from-port="2" to-layer="83" to-port="1"/>
+		<edge from-layer="82" from-port="1" to-layer="83" to-port="2"/>
+		<edge from-layer="71" from-port="6" to-layer="84" to-port="0"/>
+		<edge from-layer="83" from-port="3" to-layer="85" to-port="0"/>
+		<edge from-layer="84" from-port="1" to-layer="85" to-port="1"/>
+		<edge from-layer="54" from-port="2" to-layer="87" to-port="0"/>
+		<edge from-layer="86" from-port="1" to-layer="87" to-port="1"/>
+		<edge from-layer="87" from-port="2" to-layer="89" to-port="0"/>
+		<edge from-layer="88" from-port="1" to-layer="89" to-port="1"/>
+		<edge from-layer="89" from-port="2" to-layer="91" to-port="0"/>
+		<edge from-layer="90" from-port="1" to-layer="91" to-port="1"/>
+		<edge from-layer="91" from-port="2" to-layer="93" to-port="0"/>
+		<edge from-layer="92" from-port="1" to-layer="93" to-port="1"/>
+		<edge from-layer="93" from-port="2" to-layer="94" to-port="0"/>
+		<edge from-layer="34" from-port="2" to-layer="94" to-port="1"/>
+		<edge from-layer="94" from-port="2" to-layer="96" to-port="0"/>
+		<edge from-layer="95" from-port="1" to-layer="96" to-port="1"/>
+		<edge from-layer="96" from-port="2" to-layer="98" to-port="0"/>
+		<edge from-layer="97" from-port="1" to-layer="98" to-port="1"/>
+		<edge from-layer="98" from-port="2" to-layer="100" to-port="0"/>
+		<edge from-layer="99" from-port="1" to-layer="100" to-port="1"/>
+		<edge from-layer="100" from-port="2" to-layer="102" to-port="0"/>
+		<edge from-layer="101" from-port="1" to-layer="102" to-port="1"/>
+		<edge from-layer="102" from-port="2" to-layer="104" to-port="0"/>
+		<edge from-layer="103" from-port="1" to-layer="104" to-port="1"/>
+		<edge from-layer="104" from-port="2" to-layer="106" to-port="0"/>
+		<edge from-layer="105" from-port="1" to-layer="106" to-port="1"/>
+		<edge from-layer="106" from-port="2" to-layer="108" to-port="0"/>
+		<edge from-layer="107" from-port="1" to-layer="108" to-port="1"/>
+		<edge from-layer="108" from-port="2" to-layer="111" to-port="0"/>
+		<edge from-layer="109" from-port="1" to-layer="111" to-port="1"/>
+		<edge from-layer="110" from-port="1" to-layer="111" to-port="2"/>
+		<edge from-layer="111" from-port="3" to-layer="112" to-port="0"/>
+		<edge from-layer="112" from-port="1" to-layer="114" to-port="0"/>
+		<edge from-layer="113" from-port="1" to-layer="114" to-port="1"/>
+		<edge from-layer="114" from-port="2" to-layer="116" to-port="0"/>
+		<edge from-layer="115" from-port="1" to-layer="116" to-port="1"/>
+		<edge from-layer="111" from-port="4" to-layer="117" to-port="0"/>
+		<edge from-layer="117" from-port="1" to-layer="119" to-port="0"/>
+		<edge from-layer="118" from-port="1" to-layer="119" to-port="1"/>
+		<edge from-layer="119" from-port="2" to-layer="121" to-port="0"/>
+		<edge from-layer="120" from-port="1" to-layer="121" to-port="1"/>
+		<edge from-layer="111" from-port="5" to-layer="122" to-port="0"/>
+		<edge from-layer="116" from-port="2" to-layer="123" to-port="0"/>
+		<edge from-layer="121" from-port="2" to-layer="123" to-port="1"/>
+		<edge from-layer="122" from-port="1" to-layer="123" to-port="2"/>
+		<edge from-layer="111" from-port="6" to-layer="124" to-port="0"/>
+		<edge from-layer="123" from-port="3" to-layer="125" to-port="0"/>
+		<edge from-layer="124" from-port="1" to-layer="125" to-port="1"/>
+		<edge from-layer="85" from-port="2" to-layer="126" to-port="0"/>
+		<edge from-layer="125" from-port="2" to-layer="126" to-port="1"/>
+		<edge from-layer="126" from-port="2" to-layer="129" to-port="0"/>
+		<edge from-layer="127" from-port="1" to-layer="129" to-port="1"/>
+		<edge from-layer="128" from-port="1" to-layer="129" to-port="2"/>
+		<edge from-layer="129" from-port="5" to-layer="131" to-port="0"/>
+		<edge from-layer="130" from-port="1" to-layer="131" to-port="1"/>
+		<edge from-layer="129" from-port="3" to-layer="132" to-port="0"/>
+		<edge from-layer="131" from-port="2" to-layer="132" to-port="1"/>
+		<edge from-layer="129" from-port="6" to-layer="134" to-port="0"/>
+		<edge from-layer="133" from-port="1" to-layer="134" to-port="1"/>
+		<edge from-layer="129" from-port="4" to-layer="135" to-port="0"/>
+		<edge from-layer="134" from-port="2" to-layer="135" to-port="1"/>
+		<edge from-layer="129" from-port="3" to-layer="136" to-port="0"/>
+		<edge from-layer="131" from-port="2" to-layer="136" to-port="1"/>
+		<edge from-layer="129" from-port="4" to-layer="137" to-port="0"/>
+		<edge from-layer="134" from-port="2" to-layer="137" to-port="1"/>
+		<edge from-layer="132" from-port="2" to-layer="138" to-port="0"/>
+		<edge from-layer="135" from-port="2" to-layer="138" to-port="1"/>
+		<edge from-layer="136" from-port="2" to-layer="138" to-port="2"/>
+		<edge from-layer="137" from-port="2" to-layer="138" to-port="3"/>
+		<edge from-layer="138" from-port="4" to-layer="139" to-port="0"/>
+		<edge from-layer="129" from-port="7" to-layer="139" to-port="1"/>
+		<edge from-layer="139" from-port="2" to-layer="140" to-port="0"/>
+	</edges>
+	<meta_data>
+		<MO_version value="2020.2.0-60-g0bc66e26ff"/>
+		<cli_parameters>
+			<batch value="1"/>
+			<blobs_as_inputs value="True"/>
+			<data_type value="float"/>
+			<disable_nhwc_to_nchw value="False"/>
+			<disable_resnet_optimization value="False"/>
+			<disable_weights_compression value="False"/>
+			<enable_concat_optimization value="False"/>
+			<extensions value="DIR"/>
+			<framework value="tf"/>
+			<freeze_placeholder_with_value value="{}"/>
+			<generate_deprecated_IR_V2 value="False"/>
+			<generate_deprecated_IR_V7 value="False"/>
+			<generate_experimental_IR_V10 value="True"/>
+			<input_model value="DIR\frozen_darknet_yolov3_model.pb"/>
+			<input_model_is_text value="False"/>
+			<keep_quantize_ops_in_IR value="True"/>
+			<keep_shape_ops value="False"/>
+			<log_level value="ERROR"/>
+			<mean_scale_values value="{}"/>
+			<mean_values value="()"/>
+			<model_name value="frozen_darknet_yolov3_model"/>
+			<move_to_preprocess value="False"/>
+			<output_dir value="DIR"/>
+			<placeholder_data_types value="{}"/>
+			<progress value="False"/>
+			<reverse_input_channels value="False"/>
+			<scale_values value="()"/>
+			<silent value="False"/>
+			<stream_output value="False"/>
+			<transformations_config value="DIR\ssd_v2_support.json"/>
+			<unset unset_cli_parameters="disable_fusing, disable_gfusing, finegrain_fusing, input, input_checkpoint, input_meta_graph, input_shape, output, placeholder_shapes, saved_model_dir, saved_model_tags, scale, tensorboard_logdir, tensorflow_custom_layer_libraries, tensorflow_custom_operations_config_update, tensorflow_object_detection_api_pipeline_config, tensorflow_use_custom_operations_config"/>
+		</cli_parameters>
+	</meta_data>
+</net>
