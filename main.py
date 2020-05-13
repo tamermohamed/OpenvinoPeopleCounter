@@ -33,6 +33,8 @@ from inference import Network
 import tensorflow as tf
 import numpy as np
 import datetime
+import statistics
+
 
 # MQTT server environment variables
 HOSTNAME = socket.gethostname()
@@ -179,26 +181,39 @@ def infer_on_stream(args, client):
 
             ### TODO: Extract any desired stats from the results ###
 
-            try:
-                prev_count_mode = mode(prev_count)
-            except:
-                prev_count_mode = max(prev_count)
+            # try:
+            #     prev_count_mode = mode(prev_count)
+            # except:
+            #     prev_count_mode = max(prev_count)
 
+            if len(prev_count) > 1:
+                prev_count_mode = (round(statistics.stdev(prev_count)))
+                # if prev_count_mode > .5:
+                #     prev_count_mode = 1
+                # else:
+                #     prev_count_mode = 0
+                
+            else:
+                prev_count_mode = prev_count[0]
 
-            if current_count > prev_count_mode or len(prev_count) == 0:
-                total_count = total_count + current_count - prev_count_mode
+            print(prev_count_mode)
+
+            if (prev_count_mode > 0 and current_count > prev_total_count) or len(prev_count) == 0:
+                print(f"c:{current_count} , p : {prev_total_count} , t : {total_count}")
+                total_count = total_count + current_count - prev_total_count
                 enter_scene_time = datetime.datetime.now()
+               
 
-            prev_total_count = total_count
+            prev_total_count = prev_count_mode
 
-            if current_count == 0 and total_count == prev_total_count:
+            if current_count == 0 and prev_count_mode == 0:
                 out_scene_time = None
             else:
                 out_scene_time = datetime.datetime.now()
             
 
-            if len(prev_count) > 30:
-                prev_count = [current_count]
+            if len(prev_count) > 20 :
+                prev_count = prev_count[2:]
                 
             prev_count.append(current_count) 
             
