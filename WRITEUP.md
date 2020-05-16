@@ -16,31 +16,51 @@ for the two intel models the have less size and less inference time but for this
 
 I have atteched all models before and after convert for anyone to review and see the result.
 
-We can also have a summary about each model to take an overview about the model and its performance using inel benchmark (https://docs.openvinotoolkit.org/latest/_inference_engine_samples_benchmark_app_README.html) which gives a good insight about each model through the following command:
+We can also have a summary about each model to take an overview about the model and its performance using [Inel Benchmark](https://docs.openvinotoolkit.org/latest/_inference_engine_samples_benchmark_app_README.html) which gives a good insight about each model through the following command:
 
-{openvino}/deployment_tools/tools/benchmark_tool/benchmark_app -m model/frozen_darknet_yolov3_model.xml -d CPU -api async -i resources\Pedestrian_Detect_2_1_1.mp4 -d HETERO:CPU 
+```{openvino}/deployment_tools/tools/benchmark_tool/benchmark_app -m model/frozen_darknet_yolov3_model.xml -d CPU -api async -i resources\Pedestrian_Detect_2_1_1.mp4 -d HETERO:CPU``` 
 
-benchmark_images folder containing images for some result from this command
+Here is some results from running benchmark this command
+
+<br/>
+
+![](benchmark_images\frozen_darknet_yolov3_model.png)
+
+<br/>
+
+![](benchmark_images\person-detection-retail-0013(FP16).png)
+
+There is a great tool from intel, [Openvino DL Workbench](https://docs.openvinotoolkit.org/latest/_docs_Workbench_DG_Install_Workbench.html), we can use to convert models wihtout writing scipts and also it can be used to evaluate the models, view the model layes and visualize them, you can get the excution time foreach layer and the total excution time of the mode, you can use it to optimize the model or prepare package for deployment, it have some great features
+
+Here is some images that show that great tool
 
 
-There is a great tool from intel, Openvino DL Workbench, we can use to convert models wihtout writing scipts and also it can be used to evaluate the models, view the model layes and visualize them, you can get the excution time foreach layer and the total excution time of the mode, you can use it to optimize the model or prepare package for deployment, it have some great features
+![](worknech_model\workbench.png)
 
-https://docs.openvinotoolkit.org/latest/_docs_Workbench_DG_Install_Workbench.html
+<br/>
 
-I have attached an image for that tool in workbench_model folder beside I have converted using this tool
+![](worknech_model\workbench2.png)
 
+<br/>
+
+![](worknech_model\workbench3.png)
+
+<br/>
+
+Now let's move to the types of models that I have used, how I download, convert and use it, beside the the perfomance and size of each model
 
 - Public Models
 
   1- ssd_mobilenet_v2_coco (FP32, FP16)
 
     - Model Download
-      python {openvino}\deployment_tools\tools\model_downloader\downloader.py  --name ssd_mobilenet_v2_coco
+    
+      ```python {openvino}\deployment_tools\tools\model_downloader\downloader.py  --name ssd_mobilenet_v2_coco```
 
-    - Model Convert
-      python {openvino}/openvino/deployment_tools/model_optimizer/mo_tf.py --input_model=public\ssd_mobilenet_v2_coco\ssd_mobilenet_v2_coco_2018_03_29\frozen_inference_graph.pb 
-      --transformations_config {openvino}/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json
-      --tensorflow_object_detection_api_pipeline_config public\ssd_mobilenet_v2_coco\ssd_mobilenet_v2_coco_2018_03_29\pipeline.config --reverse_input_channels
+    - Model Convert<br/>
+    
+      ```python {openvino}/openvino/deployment_tools/model_optimizer/mo_tf.py --input_model=public/ssd_mobilenet_v2_coco\ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb --transformations_config {openvino}/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json --tensorflow_object_detection_api_pipeline_config public/ssd_mobilenet_v2_coco/ssd_mobilenet_v2_coco_2018_03_29/pipeline.config --reverse_input_channels ```
+      
 
     - Infer Time : 20139.82 ms
     - Model Size : 33 MB
@@ -51,10 +71,10 @@ I have attached an image for that tool in workbench_model folder beside I have c
   2- ssd512 (FP16-FP32)
 
     - Model Download
-      python {openvino}\deployment_tools\tools\model_downloader\downloader.py  --name ssd512
+      ```python {openvino}\deployment_tools\tools\model_downloader\downloader.py  --name ssd512```
 
     - Model Convert
-      python {openvino}/deployment_tools/model_optimizer/mo.py --input_proto=deploy.prototxt --input_model VGG_VOC0712Plus_SSD_512x512_iter_240000.caffemodel
+      ```python {openvino}/deployment_tools/model_optimizer/mo.py --input_proto=deploy.prototxt --input_model VGG_VOC0712Plus_SSD_512x512_iter_240000.caffemodel```
 
     - Infer Time : 23209.41 ms
     - Model Size : 53 MB
@@ -72,10 +92,10 @@ I have attached an image for that tool in workbench_model folder beside I have c
 
       I have tried different model weights as stated in the repository one of them is :
 
-        python convert_weights_pb.py --data_format NHWC --tiny --weights_file yolov3-tiny.weights
+        ```python convert_weights_pb.py --data_format NHWC --tiny --weights_file yolov3-tiny.weights```
     
-    - Model Convert
-      python {openvino}/deployment_tools/model_optimizer/mo_tf.py --input_model=frozen_darknet_yolov3_model.pb  --transformations_config {openvino}/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json --batch 1
+    - Model Convert <br/>
+      ```python {openvino}/deployment_tools/model_optimizer/mo_tf.py --input_model=frozen_darknet_yolov3_model.pb  --transformations_config {openvino}/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json --batch 1```
 
 
       - Model Infer Time : 20114.27 ms  excluding time of extracting the bounding boxes
