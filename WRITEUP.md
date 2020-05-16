@@ -24,26 +24,26 @@ Here is some results from running benchmark this command
 
 <br/>
 
-![](./benchmark_images\frozen_darknet_yolov3_model.png)
+![benchmark image sample](./benchmark_images\frozen_darknet_yolov3_model.png)
 
 <br/>
 
-![](./benchmark_images\person-detection-retail-0013(FP16).png)
+![benchmark image sample](./benchmark_images\person-detection-retail-0013(FP16).png)
 
 There is a great tool from intel, [Openvino DL Workbench](https://docs.openvinotoolkit.org/latest/_docs_Workbench_DG_Install_Workbench.html), we can use to convert models wihtout writing scipts and also it can be used to evaluate the models, view the model layes and visualize them, you can get the excution time foreach layer and the total excution time of the mode, you can use it to optimize the model or prepare package for deployment, it have some great features
 
 Here is some images that show that great tool
 
 
-![](./worknech_model\workbench.png)
+![workbench image sample](./worknech_model\workbench.png)
 
 <br/>
 
-![](./worknech_model\workbench2.png)
+![workbench image sample](./worknech_model\workbench2.png)
 
 <br/>
 
-![](./worknech_model\workbench3.png)
+![workbench image sample](./worknech_model\workbench3.png)
 
 <br/>
 
@@ -136,4 +136,10 @@ Now let's move to the types of models that I have used, how I download, convert 
 
 ## Model Accuracy and Edge Reources Tradeoff
 
-The problem that openvion addresses is that we have limited resources, limited networking unlike clouding where we have huge resources that we can use to run almost every model, in the edge resources we can not do that, so we come the tradeoff between having large, very accurate and poerful model that conumes huge resources and computing power or we can giveup some of the model accuracy but without great impcat on the end result, but with less size and less of computing power needed, this what openvino do, it cut some layers that use for training , merging some layers to minimize the size of the model and reduce computing power but we still have reasonable accuracy. also using high resolution cams with the need to send the frames to server this is another problem as we have large size frames that we need to send over limited resources network so the edge device can do the process and just sending data in specific situation we need info or alert about it, such as sending frame if it detects a specific object.
+ The problem that openvion addresses is that we have limited resources, limited networking unlike clouding where  we have huge resources that we can use to run almost every model, in the edge resources we can not do that.
+ 
+ We come to the tradeoff between having large, very accurate and poerful model that conumes huge resources and computing power or we can giveup some of the model accuracy but without great impcat on the end result.
+  
+ With small size model and low computing power needed we can move to edge more easy, and that is what openvino do. it cut some layers that use for training , merging some layers to minimize the size of the model and reduce computing power but we still have reasonable accuracy. 
+  
+ Another aspect here is the high resolution CAMs, the issue here if we need to send the frames out of the CAM to the server which have large size that we need to transmit over limited resources network, to overcome this issue the edge device can do the processing, and just sending data in specific situation such alert about finding some behaviuor or detecing sepecific object.
