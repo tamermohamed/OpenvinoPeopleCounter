@@ -24,26 +24,26 @@ Here is some results from running benchmark this command
 
 <br/>
 
-![](benchmark_images\frozen_darknet_yolov3_model.png)
+![](./benchmark_images\frozen_darknet_yolov3_model.png)
 
 <br/>
 
-![](benchmark_images\person-detection-retail-0013(FP16).png)
+![](./benchmark_images\person-detection-retail-0013(FP16).png)
 
 There is a great tool from intel, [Openvino DL Workbench](https://docs.openvinotoolkit.org/latest/_docs_Workbench_DG_Install_Workbench.html), we can use to convert models wihtout writing scipts and also it can be used to evaluate the models, view the model layes and visualize them, you can get the excution time foreach layer and the total excution time of the mode, you can use it to optimize the model or prepare package for deployment, it have some great features
 
 Here is some images that show that great tool
 
 
-![](worknech_model\workbench.png)
+![](./worknech_model\workbench.png)
 
 <br/>
 
-![](worknech_model\workbench2.png)
+![](./worknech_model\workbench2.png)
 
 <br/>
 
-![](worknech_model\workbench3.png)
+![](./worknech_model\workbench3.png)
 
 <br/>
 
@@ -58,7 +58,7 @@ Now let's move to the types of models that I have used, how I download, convert 
       ```python {openvino}\deployment_tools\tools\model_downloader\downloader.py  --name ssd_mobilenet_v2_coco```
 
     - Model Convert<br/>
-    
+
       ```python {openvino}/openvino/deployment_tools/model_optimizer/mo_tf.py --input_model=public/ssd_mobilenet_v2_coco\ssd_mobilenet_v2_coco_2018_03_29/frozen_inference_graph.pb --transformations_config {openvino}/deployment_tools/model_optimizer/extensions/front/tf/ssd_v2_support.json --tensorflow_object_detection_api_pipeline_config public/ssd_mobilenet_v2_coco/ssd_mobilenet_v2_coco_2018_03_29/pipeline.config --reverse_input_channels ```
       
 
