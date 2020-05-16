@@ -24,26 +24,26 @@ Here is some results from running benchmark this command
 
 <br/>
 
-![benchmark image sample](./benchmark_images\frozen_darknet_yolov3_model.png)
+![benchmark image sample](./benchmark_images/frozen_darknet_yolov3_model.png)
 
 <br/>
 
-![benchmark image sample](./benchmark_images\person-detection-retail-0013(FP16).png)
+![benchmark image sample](./benchmark_images/person-detection-retail-0013(FP16).png)
 
 There is a great tool from intel, [Openvino DL Workbench](https://docs.openvinotoolkit.org/latest/_docs_Workbench_DG_Install_Workbench.html), we can use to convert models wihtout writing scipts and also it can be used to evaluate the models, view the model layes and visualize them, you can get the excution time foreach layer and the total excution time of the mode, you can use it to optimize the model or prepare package for deployment, it have some great features
 
 Here is some images that show that great tool
 
 
-![workbench image sample](./worknech_model\workbench.png)
+![workbench image sample](./worknech_model/workbench.png)
 
 <br/>
 
-![workbench image sample](./worknech_model\workbench2.png)
+![workbench image sample](./worknech_model/workbench2.png)
 
 <br/>
 
-![workbench image sample](./worknech_model\workbench3.png)
+![workbench image sample](./worknech_model/workbench3.png)
 
 <br/>
 
